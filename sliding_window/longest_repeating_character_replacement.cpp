@@ -6,8 +6,11 @@ public:
     int substring_start = 0;
     for (int j = 0; j < s.length(); j++) {
       chars[s[j] - 65] += 1;
-      while (j - substring_start + 1 - *std::max_element(chars, chars + 26) >
-             k) {
+      // using a while loop here provides no benefits as we can not care
+      // about an invalid window that is of the same size as the max length
+      // we have currently found. the window size will only extend if we find
+      // another valid window that is longer than the current one!
+      if (j - substring_start + 1 - *std::max_element(chars, chars + 26) > k) {
         chars[s[substring_start] - 65] -= 1;
         substring_start += 1;
       }
